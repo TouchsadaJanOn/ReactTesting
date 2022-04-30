@@ -20,7 +20,7 @@ router.post('/register', function(req, res, next) {
   res.send('user made');
 });
 
-/* GET users listing. */
+/* Patch users listing. */
 router.patch('/login', function(req, res) {
   const user_email = {
     'email' : req.body.email,

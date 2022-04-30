@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import MenuIcon from '@material-ui/icons/Menu';
 import Auth from '../Auth/Authenticate';
 import {NavLink, useNavigate, Link} from "react-router-dom";
 import { Button } from '@material-ui/core';
@@ -43,6 +44,15 @@ export default function NavBar() {
     const handleRegister = () => {
         handleClose();
         navigate('authenticate/user_register');
+    };
+    const handleAskQuestion = () => {
+        handleClose();
+        navigate('users/ask_question');
+    };
+
+    const handleViewQuestion = () => {
+        handleClose();
+        navigate('users/view_question');
     };
 
     const handleMenu = (event) => {
@@ -83,7 +93,6 @@ export default function NavBar() {
                     onClose={handleClose}
                 >
                     <MenuItem onClick={Logout}>Logout</MenuItem>
-                    {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
                 </Menu>
                 </div>
             )
@@ -94,12 +103,12 @@ export default function NavBar() {
             >
                 Home
             </Button>
-            <Button
+            <MenuIcon
                 onClick={handleMenu}
                 color="inherit"
             >
                 Account
-            </Button>
+            </MenuIcon>
             <Menu
                 anchorEl={anchorEl}
                 anchorOrigin={{
@@ -115,6 +124,8 @@ export default function NavBar() {
             >
                 <MenuItem onClick={handleLogin}>Login</MenuItem>
                 <MenuItem onClick={handleRegister}>Register</MenuItem>
+                <MenuItem onClick={handleAskQuestion}>Ask a Question</MenuItem>
+                <MenuItem onClick={handleViewQuestion}>View Questions</MenuItem>
             </Menu>
             </div>
         )}                

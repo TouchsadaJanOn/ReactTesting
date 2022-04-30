@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%', 
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyles();
-  const nagivate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -45,9 +44,10 @@ export default function Login() {
 
     const handleOnSubmit = (e) => {
 
+      e.preventDefault();
+
     const user_data = {
-      email,
-      password
+      email
     };
 
       axios.patch('http://localhost:9001/users/login', user_data)
@@ -68,7 +68,7 @@ export default function Login() {
         setloginError(true);
       }
       
-    e.preventDefault();
+    
   };
 
   const setError = () => {
@@ -100,6 +100,13 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+
+        <div>
+
+          {setSuccess()}
+          {setError()}
+            
+          </div>
         <form className={classes.form} onSubmit={handleOnSubmit}>
           <TextField
             label="Email Address"
@@ -116,10 +123,6 @@ export default function Login() {
             value={password}
             onChange={(e)=>setPassword(e.target.value)}
           />
-          <div>
-            {setError()}
-            {setSuccess()}
-          </div>
           
           <Button
             type="submit"
