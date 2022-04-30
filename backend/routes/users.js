@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* Post users listing. */
-router.post('/register', function(req, res, next) {
+router.post('/register', function(req, res) {
   const newUser = {
     name : req.body.name,
     email : req.body.email,
@@ -17,7 +17,7 @@ router.post('/register', function(req, res, next) {
   var db = req.app.locals.db;
   db.collection('new_users').insertOne(newUser);
 
-  res.send('user made');
+  res.send(newUser);
 });
 
 /* Patch users listing. */
@@ -35,6 +35,18 @@ router.patch('/login', function(req, res) {
       res.json(result);
     }
   });
+});
+
+//post questions
+router.post('/createQuestion', function(req, res) {
+  const newQuestion = {
+    asker : req.body.asker,
+    question : req.body.question
+  }
+  var db = req.app.locals.db;
+  db.collection('new_question').insertOne(newQuestion);
+
+  res.send(newQuestion);
 });
 
 

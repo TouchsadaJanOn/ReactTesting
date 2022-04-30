@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -6,8 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
-import Auth from '../Auth/Authenticate';
-import {NavLink, useNavigate, Link} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,17 +23,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NavBar() {
     
-    const {user, handleLogout} = useContext(Auth);
     const navigate = useNavigate();
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
 
-
-    const Logout = () => {
-        handleClose();
-        handleLogout();
-    };
 
     const handleLogin = () => {
         handleClose();
@@ -70,33 +63,7 @@ export default function NavBar() {
               <Typography variant="h6"  className={classes.title}>
                   Touch React Forum
             </Typography>
-            {user ?
-            (
-                <div>
-                <Button
-                    onClick={handleMenu}
-                    color="inherit"
-                >
-                    {user.name}
-                </Button>
-                <Menu
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                    }}
-                    transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                    }}
-                    open={open}
-                    onClose={handleClose}
-                >
-                    <MenuItem onClick={Logout}>Logout</MenuItem>
-                </Menu>
-                </div>
-            )
-            : (<div>
+            <div>
                 <Button
                 onClick={() => navigate('/')}
                 color="inherit"
@@ -127,8 +94,7 @@ export default function NavBar() {
                 <MenuItem onClick={handleAskQuestion}>Ask a Question</MenuItem>
                 <MenuItem onClick={handleViewQuestion}>View Questions</MenuItem>
             </Menu>
-            </div>
-        )}                
+            </div>          
                 </Toolbar>
             </AppBar>
         

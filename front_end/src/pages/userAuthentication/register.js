@@ -36,11 +36,9 @@ export default function Register() {
 
   
   const [name, setName] = useState("");
-  // const [nameError, setNameError] = useState(null);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(null);
   const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfim] = useState("");
   const [RegisterSuccess, setRegisterSuccess] = useState(false);
 
 
