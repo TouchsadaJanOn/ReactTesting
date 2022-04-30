@@ -14,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
 export default function CreateQuestions(){
     const classes = useStyles();
 
+  const refresh = () =>{ 
+    setTimeout(() => window.location.reload(), 2000);
+  }
+
     const [asker, setAsker] = useState("");
     const [question, setQuestion] = useState("");
     const [QuestionSuccess, setQuestionSuccess] = useState(false);
@@ -40,18 +44,16 @@ export default function CreateQuestions(){
               <div style={{
                 display: QuestionSuccess ? " ":"none",
               }}>
-                <p className='success_style'> Question Successfully Submitted </p>
+                <p className='success_style'> Question Successfully Submitted!! Please wait!! </p>
               </div>
             );
           };
 
-
+         
     
     return(
         <div>
-            <div>
-            {setSuccess()}
-                 </div>
+            
     <form className={classes.form} onSubmit={handleOnSubmit}>
             <div class = "header">
             <div class = "column-text">
@@ -69,17 +71,27 @@ export default function CreateQuestions(){
                 </p>
                 <textarea class ="textarea-style" value={question} onChange = {(e)=>setQuestion(e.target.value)} placeholder='Type your question here...'>
                 </textarea>
-            <Button
+            {/* <Button
                 variant="contained"
                 type="submit"
                 color="primary"
                 className={classes.button}
-                // onClick = {}
             >
                 Send
+            </Button> */}
+            <Button
+                variant="contained"
+                type="submit"
+                color="secondary"
+                className={classes.button}
+                onClick={refresh}
+            >
+                Send Question
             </Button>
             </div>
-
+            <div>
+            {setSuccess()}
+            </div>
             </div>
             </div>
             </form>
