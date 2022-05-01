@@ -12,3 +12,39 @@
 h1{
     color: #3F51B5;
 }
+.element{
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 0.50rem;
+
+}
+.title-color{
+    color: #3F51B5;
+    margin: 5px;
+    font-size: 25px;
+}
+.question-style{
+    color: black;
+    margin: 0px;
+    margin-left: 20px;
+    font-weight: bolder;
+    font-size: 15px;
+}
+.form-style{
+    margin: 10px;
+}
+.textarea-style2{
+        writing-mode: horizontal-tb;
+        resize: auto;
+        text-rendering: auto;
+        border-color: #3F51B5;
+        border-width: 2px;
+        border-radius: 10px;
+        cursor: text;
+        padding: 15px;
+        display: flex;
+        width: 620px;
+        margin-left: 15px;
+        height: auto;
+    
+}
