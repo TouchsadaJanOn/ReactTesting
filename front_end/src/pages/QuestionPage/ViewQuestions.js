@@ -30,7 +30,7 @@ export default function ViewQuestions(){
             })  
           .then(res => res.json())
           .then(setUpdate(update + 1))
-          .then(console.log("Vote count completed"))
+          .then(console.log("Vote count completed", {newVotes}))
     }
 
     const submitComment = (questionID) =>{
@@ -42,7 +42,7 @@ export default function ViewQuestions(){
             'comment': comment
         }
 
-        fetch('http://localhost:9001/comment/question_comment', 
+        fetch('http://localhost:9001/comment/responses', 
             {
                 method:'POST', 
                 body: JSON.stringify(addComment),
@@ -69,7 +69,8 @@ export default function ViewQuestions(){
                                     <div class="accordion-item">
                                         <div className='title-color' key={q.id}>{q.asker == null ? "Unknown":q.asker}</div>
                                             <div className="question-style" key={q.id}>{q.question}</div>
-                                            <button className="btn bg-danger font-weight-bold text-white text-center m-4" value="Vote" onClick={() => question_vote(q.id, q.votes)}>Votes Count: {q.votes == null ? "0":q.votes}</button>
+                                            <p className="m-3 font-weight-bold text-danger ">Likes: {q.votes == null ? "0":q.votes}</p>
+                                            <button className="btn bg-danger font-weight-bold text-white text-center m-4" value="Vote" onClick={() => question_vote(q.id, q.votes)}> Like </button>
                                             <div>
                                                 <form className='form-style'>
                                                     <textarea value={comment} className="textarea-style2" onChange={(e)=>setComment(e.target.value)}></textarea>

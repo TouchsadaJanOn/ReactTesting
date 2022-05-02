@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
   const classes = useStyles();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setloginError] = useState(null);
@@ -42,7 +43,7 @@ export default function Login() {
   const [checkPass, setcheckPass] = useState("");
   const [checkEmail, setcheckEmail] = useState("");
 
-    const handleOnSubmit = (e) => {
+    const handleOnSubmit = async (e) => {
 
       e.preventDefault();
 
@@ -55,6 +56,9 @@ export default function Login() {
 
       axios.patch('http://localhost:9001/users/login', user_data)
       .then(res=>setcheckPass(res.data[0].password));
+
+      axios.patch('http://localhost:9001/users/login', user_data)
+      .then(res=>setName(res.data[0].name));
 
       console.log(checkEmail, checkPass);
 
@@ -85,7 +89,7 @@ export default function Login() {
       <div style={{
         display: loginSuccess ? " ":"none",
       }}>
-        <p className='success_style'> You are in the Database </p>
+        <p className='success_style'> {name} shows in the Database </p>
       </div>
     );
   };
@@ -124,7 +128,7 @@ export default function Login() {
             onChange={(e)=>setPassword(e.target.value)}
           />
           
-          <Button
+          <Button 
             type="submit"
             fullWidth
             variant="contained"
