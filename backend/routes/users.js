@@ -6,6 +6,19 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+router.get('/login', function(req, res) {
+
+  var db = req.app.locals.db;
+  db.collection('new_users').find({}).toArray(function(err, result) {
+    if (err) {
+      res.status(400).send("Error getting responses!!!");
+    } else {
+      res.json(result);
+    }
+  });
+
+});
+
 /* Post users listing. */
 router.post('/register', function(req, res) {
   const newUser = {

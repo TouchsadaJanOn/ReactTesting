@@ -48,3 +48,8 @@ h1{
         height: auto;
     
 }
+.comment-style
+{
+    font-weight: bold;
+    margin: 10px;
+}

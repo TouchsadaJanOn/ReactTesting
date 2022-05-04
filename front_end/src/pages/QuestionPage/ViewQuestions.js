@@ -2,19 +2,20 @@ import React, {useState, useEffect} from 'react';
 import { v4 as uuidv4 } from "uuid";
 import axios from 'axios';
 import './ViewQuestion.css'
-import { Button } from '@material-ui/core';
 
 export default function ViewQuestions(){
 
     const [questions, setQuestions] = useState([]);
     const [update, setUpdate] = useState(0);
     const [comment, setComment] = useState("");
+    const [showComment, setshowComment] = useState("");
 
     useEffect(() => {
         fetch('http://localhost:9001/users/viewQuestion')  
           .then(res => res.json())
           .then(data => setQuestions(data))
       }, [update])
+
 
       const question_vote = (id, votes) =>{
 
@@ -26,22 +27,12 @@ export default function ViewQuestions(){
             'id': id, 
             'votes': newVotes
         }
-        
-        // fetch('http://localhost:9001/users/viewQuestion', 
-        //     {
-        //         method:'PATCH', 
-        //         body: JSON.stringify(updatequestion),
-        //         headers: {
-        //           "Content-Type": "application/json; charset=utf-8",
-        //         }
-        //     })  
-        //   .then(res => res.json())
-        //   .then(setUpdate(update + 1))
-        //   .then(console.log("Vote count completed", {newVotes}))
 
         axios.patch('http://localhost:9001/users/viewQuestion', updatequestion
         ).then(console.log("axios testing"))
         .then(setUpdate(update + 1))
+
+        
     }
 
     const submitComment = (questionID) =>{
@@ -53,50 +44,53 @@ export default function ViewQuestions(){
             'comment': comment
         }
 
-        fetch('http://localhost:9001/comment/responses', 
-            {
-                method:'POST', 
-                body: JSON.stringify(addComment),
-                headers: {
-                  "Content-Type": "application/json; charset=utf-8",
-                }
-            })  
-          .then(res => res.json())
-          .then(data => console.log(data))
+          axios.post('http://localhost:9001/comment/responses', addComment
+        ).then(console.log("axios testing"))
+
+        
+
+
       }
+      
+      axios.get('http://localhost:9001/comment/responses')
+        .then((response) => {setshowComment(response.data[0].comment);});
+      
+
+      
 
     return(
         <div>
             <div class = "header">
-            <div class = "column-text">
-                <h1>
-                    View All Questions
-                    </h1>
-                <div class="element">
-                        <div className="card bg-primary">
-                            <div className="card-body">
-                            <div class="accordion-item">
-                                    {questions.map(q =>
-                                    <div class="accordion-item">
-                                        <div className='title-color' key={q.id}>{q.asker == null ? "Unknown":q.asker}</div>
-                                            <div className="question-style" key={q.id}>{q.question}</div>
-                                            <p className="m-3 font-weight-bold text-danger ">Likes: {q.votes == null ? "0":q.votes}</p>
-                                            <button className="btn bg-danger font-weight-bold text-white text-center m-4" value="Vote" onClick={() => question_vote(q.id, q.votes)}> Like </button>
-                                            <div>
-                                                <form className='form-style'>
-                                                    <textarea 
-                                                    value={comment} 
-                                                    className="textarea-style2" 
-                                                    onChange={(e)=>setComment(e.target.value)}></textarea>
-                                                <button value="Submit A Comment" className="btn btn-success m-3 " onClick={() => submitComment(q.id)}>Submit A Comment</button>
-                                                </form>
-                                        </div>
-                                  </div>)}
-                                  </div>
-                      </div>
+                <div class = "column-text">
+                    <h1>
+                        View All Questions
+                        </h1>
+                    <div class="element">
+                            <div className="card bg-primary">
+                                <div className="card-body">
+                                        {questions.map(q =>
+                                        <div class="accordion-item">
+                                            <div className='title-color' key={q.id}>{q.asker == null ? "Unknown":q.asker}</div>
+                                                <div className="question-style" key={q.id}>{q.question}</div>
+                                                    <p className="m-3 font-weight-bold text-danger ">Likes: {q.votes == null ? "0":q.votes} </p>
+                                                    <button className="btn bg-danger font-weight-bold text-white text-center m-4" value="Vote" onClick={() => question_vote(q.id, q.votes)}> Double Click to Like</button> 
+                                                        <div className='container'>
+                                                            <form className='form-style'>
+                                                                <textarea 
+                                                                className="textarea-style2 form-control form-control-lg" 
+                                                                onChange={(e)=>setComment(e.target.value)}></textarea>
+                                                                <button value="Submit A Comment" className="btn btn-success m-3 " onClick={() => submitComment(q.id)}>Submit A Comment</button>
+                                                            </form>
+                                                        </div>
+                                                            <p className='comment-style'>Comments: </p>
+                                                            <p className='border m-3 p-2'>  {showComment} </p> 
+                                                            <p className='border m-3 p-2 text-danger'> Please check the database for further comment analysis</p> 
+                                        </div>)}
+                                    
+                                </div>
+                            </div>
+                    </div>
                 </div>
-            </div>
-            </div>
             </div>
         </div>
     );
