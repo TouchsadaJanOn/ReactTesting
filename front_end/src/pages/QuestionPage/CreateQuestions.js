@@ -2,6 +2,7 @@ import { Button, makeStyles } from '@material-ui/core';
 import React , {useState} from 'react';
 import './CreateQuestion.css'
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 
 
@@ -24,8 +25,11 @@ export default function CreateQuestions(){
 
     const handleOnSubmit = async(event) => {
         event.preventDefault();
+        var id = uuidv4();
+
         const question_data = {
           asker, 
+          id,
           question
         };
 
@@ -71,14 +75,6 @@ export default function CreateQuestions(){
                 </p>
                 <textarea class ="textarea-style" value={question} onChange = {(e)=>setQuestion(e.target.value)} placeholder='Type your question here...'>
                 </textarea>
-            {/* <Button
-                variant="contained"
-                type="submit"
-                color="primary"
-                className={classes.button}
-            >
-                Send
-            </Button> */}
             <Button
                 variant="contained"
                 type="submit"

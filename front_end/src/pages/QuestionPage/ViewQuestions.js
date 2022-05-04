@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { v4 as uuidv4 } from "uuid";
+import axios from 'axios';
 import './ViewQuestion.css'
+import { Button } from '@material-ui/core';
 
 export default function ViewQuestions(){
 
@@ -18,19 +20,28 @@ export default function ViewQuestions(){
 
         var newVotes = votes == null ? 1 : votes + 1;
 
-        var updatequestion = {'id': id, 'votes': newVotes}
+        console.log(newVotes);
+
+        var updatequestion = {
+            'id': id, 
+            'votes': newVotes
+        }
         
-        fetch('http://localhost:9001/users/viewQuestion', 
-            {
-                method:'PATCH', 
-                body: JSON.stringify(updatequestion),
-                headers: {
-                  "Content-Type": "application/json; charset=utf-8",
-                }
-            })  
-          .then(res => res.json())
-          .then(setUpdate(update + 1))
-          .then(console.log("Vote count completed", {newVotes}))
+        // fetch('http://localhost:9001/users/viewQuestion', 
+        //     {
+        //         method:'PATCH', 
+        //         body: JSON.stringify(updatequestion),
+        //         headers: {
+        //           "Content-Type": "application/json; charset=utf-8",
+        //         }
+        //     })  
+        //   .then(res => res.json())
+        //   .then(setUpdate(update + 1))
+        //   .then(console.log("Vote count completed", {newVotes}))
+
+        axios.patch('http://localhost:9001/users/viewQuestion', updatequestion
+        ).then(console.log("axios testing"))
+        .then(setUpdate(update + 1))
     }
 
     const submitComment = (questionID) =>{
@@ -73,8 +84,11 @@ export default function ViewQuestions(){
                                             <button className="btn bg-danger font-weight-bold text-white text-center m-4" value="Vote" onClick={() => question_vote(q.id, q.votes)}> Like </button>
                                             <div>
                                                 <form className='form-style'>
-                                                    <textarea value={comment} className="textarea-style2" onChange={(e)=>setComment(e.target.value)}></textarea>
-                                                    <button value="Submit A Comment" className="btn btn-success m-3 " onClick={() => submitComment(q.id)}>Submit A Comment</button>
+                                                    <textarea 
+                                                    value={comment} 
+                                                    className="textarea-style2" 
+                                                    onChange={(e)=>setComment(e.target.value)}></textarea>
+                                                <button value="Submit A Comment" className="btn btn-success m-3 " onClick={() => submitComment(q.id)}>Submit A Comment</button>
                                                 </form>
                                         </div>
                                   </div>)}

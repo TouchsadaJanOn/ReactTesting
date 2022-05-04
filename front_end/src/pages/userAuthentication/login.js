@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from "axios";
-import { Navigate, useNavigate } from 'react-router-dom';
 import "./login.css"
 
 
@@ -80,7 +79,7 @@ export default function Login() {
       <div style={{
         display: loginError ? " ":"none",
       }}>
-        <p className='error_style'> Wrong Email or Password </p>
+        <p className='error_style'> Click Sign In twice or wrong Email or Password </p>
       </div>
     );
   };
@@ -137,6 +136,7 @@ export default function Login() {
           >
             Sign In
           </Button>
+          <p className='note-style'>** Double Click to verify and Login In</p>
         </form>
       </div>
     </Container>

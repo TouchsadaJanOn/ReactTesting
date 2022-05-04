@@ -27,7 +27,7 @@ router.post('/responses', function (req, res) {
   db.collection('responses').insertOne(response);
 
   res.send(
-    'Question Inserted'
+    'Question and response Inserted'
   );
 });
 

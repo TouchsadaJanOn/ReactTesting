@@ -40,6 +40,7 @@ router.patch('/login', function(req, res) {
 //post questions
 router.post('/createQuestion', function(req, res) {
   const newQuestion = {
+    id: req.body.id,
     asker : req.body.asker,
     question : req.body.question
   }
@@ -69,7 +70,7 @@ router.patch('/viewQuestion', function(req, res) {
     'id': req.body.id,
   }
   var votes_num = {
-    'votes_num': req.body.votes_num,
+    'votes': req.body.votes,
   }
 
   var db = req.app.locals.db;
@@ -77,9 +78,8 @@ router.patch('/viewQuestion', function(req, res) {
     if (err) throw err;
   });
   res.send(
-    '1 Question updated'
+    'Question updated ', votes_num, id
   );
-  res.json(votes_num);
 });
 
 
