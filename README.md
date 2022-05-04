@@ -25,6 +25,8 @@ After cloning the repo:
   - ![image](https://user-images.githubusercontent.com/57841675/166620611-9ee2240d-a7d8-4a96-b5b2-d5c6d078077c.png)
 ## View Questions Page:
   - ![image](https://user-images.githubusercontent.com/57841675/166620652-19640d52-eea1-49d2-bbd7-4baeb730c259.png)
+## Created Database
+  - ![image](https://user-images.githubusercontent.com/57841675/166620867-0541c036-13d8-472d-8193-888ddaa89671.png)
 
 
   
