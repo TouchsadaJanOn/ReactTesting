@@ -1,4 +1,10 @@
 # ReactTesting
+## Location of MongoDB and Port #:
+  - MongoDB: /backend/bin/www
+  - Port #: 9001
+  ![image](https://user-images.githubusercontent.com/57841675/166621142-8ca00e16-3b4a-47cb-b5bd-ba127e6db2e2.png)
+  
+
 After cloning the repo:
   - Open new terminal
   - "cd" into "backend" folder
